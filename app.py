@@ -98,7 +98,7 @@ selected_noun = st.selectbox('Select noun:', nouns)
 if 'visualisations' not in st.session_state:
     st.session_state.visualisations = False
 
-if st.session_state.visualisations or st.session_state.section == 'Visualisations':
+if st.session_state.visualisations and st.session_state.section == 'Visualisations':
     st.title('Visualisations')
     with st.form(key='visualisations_form'):
         st.session_state.visualisations = True
@@ -115,7 +115,7 @@ if st.session_state.section != 'Visualisations':
 if 'World-Wide Frequencies' not in st.session_state:
     st.session_state.world = False
 
-if st.session_state.world or st.session_state.section == 'World-Wide Frequencies':
+if st.session_state.world and st.session_state.section == 'World-Wide Frequencies':
     st.title('World-Wide Frequencies')
     noun = selected_noun
     fig = Image.open(f'data/image_folders/world_maps/{noun}.png')
@@ -127,7 +127,7 @@ if st.session_state.section != 'World-Wide Frequencies':
 if 'topk' not in st.session_state:
     st.session_state.topk = False
 
-if st.session_state.topk or st.session_state.section == 'Top-K countries':
+if st.session_state.topk and st.session_state.section == 'Top-K countries':
     st.title('Top-K countries')
     noun = selected_noun
     fig = Image.open(f'data/image_folders/top_middle_bottom_plots/top_{noun}_mixtral.jpg')
