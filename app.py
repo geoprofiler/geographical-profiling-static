@@ -25,24 +25,17 @@ st.title('Geographical Analysis')
 
 width = 5000
 
-countries = ['India', 'Japan', 'South Korea', 'Israel', 'Finland', 'United States', 
-            'United Kingdom', 'Germany', 'France', 'Italy', 'Spain', 'Greece',
-            'Czech Republic', 'Poland', 'Chile', 'Brazil', 'Mexico', 'Canada',
-            'Australia', 'New Zealand', 'Portugal', 'Hungaria', 'South Africa', 'Slovenia',
-            'Estonia', 'Latvia', 'Belgium', 'No GPE', 'Guinea', 'Nigeria', 'Philippines', 'Kenya', 'Thailand']
-
 nouns = ['house', 'car', 'kitchen', 'flag', 'road', 'bedroom', 'beach', 'hotel', 'toilet', 'apartment']
 
 @st.cache_data
-def get_dataset(country, s, n):
+def get_dataset(s, n):
     data_path = f'data/{n}_data.csv'
     df = pd.read_csv(data_path, low_memory=False)
     cap_dic = []
-    captions = df['text'].tolist()
     ids = df['id'].tolist()
     urls = df['url'].tolist()
     column = 'mixtral'
-    country = preprocess_column(country)
+    captions = df['mixtral'].tolist()
     # df[column] = df[column].fillna('no')
     # df[column] = df[column].str.lower()
     # df[column] = df[column].apply(preprocess_column)
@@ -51,12 +44,9 @@ def get_dataset(country, s, n):
     # Create a list to store images and captions
     images = []
     for i, c in enumerate(df[column].tolist()):
-        c = preprocess_column(c)
         url = urls[i]
         caption = captions[i]
         local_path = f'data/image_folders/{n}_region_balanced_images/'+ids[i]+'.jpg'
-        if country != 'No GPE' and c != country:
-            continue  
         flag = False
         predicted_label = df.loc[i, 'svm_1']
         if predicted_label != 1:
@@ -113,11 +103,10 @@ if st.session_state.visualisations or st.session_state.section == 'Visualisation
     st.title('Visualisations')
     with st.form(key='visualisations_form'):
         st.session_state.visualisations = True
-        selected_country = st.selectbox('Select country:', countries)
         if 'counter' not in st.session_state:
             st.session_state.counter = 0
         if st.form_submit_button('Let\'s see!'):
-            get_dataset(selected_country, st.session_state.counter, selected_noun)
+            get_dataset(st.session_state.counter, selected_noun)
             st.session_state.counter += width
 
 elif st.session_state.section != 'Visualisations':
