@@ -108,7 +108,7 @@ if st.session_state.visualisations or st.session_state.section == 'Visualisation
             get_dataset(st.session_state.counter, selected_noun)
             st.session_state.counter += width
 
-elif st.session_state.section != 'Visualisations':
+if st.session_state.section != 'Visualisations':
     st.session_state.visualisations = False
     st.session_state.section = section
 
@@ -120,7 +120,7 @@ if st.session_state.world or st.session_state.section == 'World-Wide Frequencies
     noun = selected_noun
     fig = Image.open(f'data/image_folders/world_maps/{noun}.png')
     st.image(fig)
-elif st.session_state.section != 'World-Wide Frequencies':
+if st.session_state.section != 'World-Wide Frequencies':
     st.session_state.world = False
     st.session_state.section = section
 
@@ -138,7 +138,7 @@ if st.session_state.topk or st.session_state.section == 'Top-K countries':
 
     fig = Image.open(f'data/image_folders/top_middle_bottom_plots/bottom_{noun}_mixtral.jpg')
     st.image(fig)
-elif st.session_state.section != 'Top-K countries':
+if st.session_state.section != 'Top-K countries':
     st.session_state.topk = False
     st.session_state.section = section
 
