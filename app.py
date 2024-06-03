@@ -125,6 +125,9 @@ elif st.session_state.section != 'World-Wide Frequencies':
     st.session_state.world = False
     st.session_state.section = section
 
+if 'topk' not in st.session_state:
+    st.session_state.topk = False
+
 if st.session_state.topk or st.session_state.section == 'Top-K Countries':
     st.title('Top-K Countries')
     noun = selected_noun
@@ -139,8 +142,8 @@ if st.session_state.topk or st.session_state.section == 'Top-K Countries':
     fig = Image.open(f'data/image_folders/top_middle_bottom_plots/bottom_{noun}_mixtral.png')
     st.image(fig)
     plt.close()
-elif st.session_state.section != 'World-Wide Frequencies':
-    st.session_state.world = False
+elif st.session_state.section != 'Top-K Countries':
+    st.session_state.topk = False
     st.session_state.section = section
 
 
