@@ -63,7 +63,7 @@ def get_dataset(s, n):
                 new_height = int(new_width / aspect_ratio)
                 image = image.resize((new_width, new_height))
                 # Append image and caption to the list
-                images.append((url, image, country))
+                images.append((url, image, caption))
             except Exception as e:
                 print(f"Exception: {str(e)}")
     
