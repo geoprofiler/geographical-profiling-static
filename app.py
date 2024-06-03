@@ -113,53 +113,12 @@ elif st.session_state.section != 'Visualisations':
     st.session_state.visualisations = False
     st.session_state.section = section
 
-# if st.session_state.section == 'World-Wide Frequencies':
-#     st.title('World-Wide Frequencies')
-#     noun = selected_noun
-#     data_path = f'/data2/abhipsa/datasets/laion_processed/laion_{noun}1M_1.csv'
-#     column = 'mixtral_spacy'
-#     if os.path.exists(f'data/distribution_{noun}_{column}.csv'):
-#         df = pd.read_csv(f'data/distribution_{noun}_{column}.csv')
-#     else:
-#         df = pd.read_csv(data_path, low_memory=False)
-#         parse_args = namedtuple('parse_args', ['tagged_file', 'column', 'noun', 'svm', 'source', 'copy'])
-#         args = parse_args(tagged_file=data_path, column=column, noun=noun, svm=True, source=False, copy=False)
-#         df = find_distribution(args)
-#     world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
-#     world['name'] = world['name'].str.lower()
-#     world['name'] = world['name'].str.replace(r'\bw\.', 'west', regex=True)
-#     world['name'] = world['name'].str.replace(r'\be\.', 'east', regex=True)
-#     world['name'] = world['name'].str.replace(r'\bs\.', 'south', regex=True)
-#     world['name'] = world['name'].str.replace(r'\bn\.', 'north', regex=True)
-#     # file_path = 'data/world_modified.shp'
-#     # world = gpd.read_file(file_path)
-#     world['name'] = world['name'].apply(preprocess_column)
-#     # Merge the world map dataframe with the country counts
-#     world = world.merge(df.groupby('mixtral_spacy')['counts'].sum().reset_index(),
-#                         left_on='name', right_on='mixtral_spacy', how='left')
-#     # Fill missing values with 0
-#     world['counts'] = world['counts'].fillna(0)
-#     # Apply logarithmic transformation to the counts
-#     world['count_log'] = np.log10(world['counts'] + 1)  # Adding 1 to avoid log(0)
-#     # Plot the world map with country counts on logarithmic scale
-#     levels = [0, 1, 2, 3, 4, 5]
-#     labels = [f'$10^{level}$' for level in levels]
-#     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
-#     ax.axis('off')
-#     world.plot(column='count_log', ax=ax, legend=True,
-#                legend_kwds={'orientation': "vertical"}, cmap='Blues')
-#     # Customize the legend labels
-#     colorbar = ax.get_figure().get_axes()[1]
-#     colorbar.set_aspect(2)
-#     colorbar.set_frame_on(False)
-#     # Set the position of the ticks manually
-#     num_ticks = len(levels)
-#     colorbar.set_yticks(range(num_ticks))
-#     colorbar.set_yticklabels(labels, fontsize=6)
-#     plt.title(f'Country-wise distribution of {noun} (Log Scale)')
-#     # plt.savefig(f'Plots/world_map_{noun}.png', bbox_inches='tight')
-#     st.pyplot(fig)
-#     plt.close()
+if st.session_state.section == 'World-Wide Frequencies':
+    st.title('World-Wide Frequencies')
+    noun = selected_noun
+    fig = Image.open(f'data/image_folders/world_maps/{noun}.png')
+    st.pyplot(fig)
+    plt.close()
 
 # if 'topk' not in st.session_state:
 #     st.session_state.topk = False
