@@ -117,7 +117,7 @@ if st.session_state.section == 'World-Wide Frequencies':
     st.title('World-Wide Frequencies')
     noun = selected_noun
     fig = Image.open(f'data/image_folders/world_maps/{noun}.png')
-    st.pyplot(fig)
+    st.image(fig)
     plt.close()
 
 # if 'topk' not in st.session_state:
