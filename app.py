@@ -18,10 +18,6 @@ import re
 from bokeh.plotting import figure, output_file, show
 from bokeh.models import HoverTool, ColumnDataSource
 from collections import namedtuple
-from find_distribution import find_distribution, preprocess_column
-
-# Load the English language model
-nlp = spacy.load("en_core_web_sm")
 
 st.set_page_config(layout="wide")
 
