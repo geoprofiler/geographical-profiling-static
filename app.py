@@ -87,11 +87,10 @@ if 'section' not in st.session_state:
     st.session_state.section = 'Visualisations'
 
 # Add a dropdown menu for different sections
-section = st.sidebar.selectbox('Select Section', ['Visualisations', 'World-Wide Frequencies', 'Top-K countries'])
-st.session_state.section = section
-
 if 'section' not in st.session_state:
     st.session_state.section = ''
+section = st.sidebar.selectbox('Select Section', ['Visualisations', 'World-Wide Frequencies', 'Top-K countries'])
+st.session_state.section = section
 
 selected_noun = st.selectbox('Select noun:', nouns)
 
@@ -113,12 +112,37 @@ elif st.session_state.section != 'Visualisations':
     st.session_state.visualisations = False
     st.session_state.section = section
 
-if st.session_state.section == 'World-Wide Frequencies':
+if 'World-Wide Frequencies' not in st.session_state:
+    st.session_state.world = False
+
+if st.session_state.world or st.session_state.section == 'World-Wide Frequencies':
     st.title('World-Wide Frequencies')
     noun = selected_noun
     fig = Image.open(f'data/image_folders/world_maps/{noun}.png')
     st.image(fig)
     plt.close()
+elif st.session_state.section != 'World-Wide Frequencies':
+    st.session_state.world = False
+    st.session_state.section = section
+
+if st.session_state.topk or st.session_state.section == 'Top-K Countries':
+    st.title('Top-K Countries')
+    noun = selected_noun
+    fig = Image.open(f'data/image_folders/top_middle_bottom_plots/top_{noun}_mixtral.png')
+    st.image(fig)
+    plt.close()
+
+    fig = Image.open(f'data/image_folders/top_middle_bottom_plots/middle_{noun}_mixtral.png')
+    st.image(fig)
+    plt.close()
+
+    fig = Image.open(f'data/image_folders/top_middle_bottom_plots/bottom_{noun}_mixtral.png')
+    st.image(fig)
+    plt.close()
+elif st.session_state.section != 'World-Wide Frequencies':
+    st.session_state.world = False
+    st.session_state.section = section
+
 
 # if 'topk' not in st.session_state:
 #     st.session_state.topk = False
